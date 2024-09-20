@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/ronin1770/blog-03-jenkins-101.git'
+            }
+        }
+        stage('Install Python') {
+            steps {
+                sh 'python3 --version'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip3 install -r requirements.txt || echo "No dependencies to install"'
+            }
+        }
+        stage('Run Python Script') {
+            steps {
+                sh 'python3 script.py'
+            }
+        }
+    }
+}
